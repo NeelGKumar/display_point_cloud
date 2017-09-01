@@ -41,9 +41,9 @@ namespace display_point_cloud
                 double y = double.Parse(items[1]);
                 double z = double.Parse(items[2]);
                 double w = double.Parse(items[3]);
-
+                double radius = Math.Pow(Math.Abs(w) * 3.0 / (4.0 * Math.PI), 1.0 / 3.0);
                 Point3d point = new Point3d(x, y, z);
-                Sphere sp = new Sphere(point, Math.Abs(w));
+                Sphere sp = new Sphere(point, radius);
 
                 var attributes = new Rhino.DocObjects.ObjectAttributes();              
                 
@@ -56,7 +56,7 @@ namespace display_point_cloud
                 doc.Objects.AddSphere(sp, attributes);
 
             }
-            
+            reader.Close();
             doc.Views.Redraw();
 
             return Result.Success;
